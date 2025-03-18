@@ -45,22 +45,26 @@ for website in websites_to_visit:
         
         # Check for tel: href first
         tel_numbers = find_tel_href(driver)
-        
+
         if tel_numbers:
-            print(f"Found {len(tel_numbers)} tel: href links:")
-            for number in tel_numbers:
+            unique_numbers = set(tel_numbers)  # Store unique numbers
+            print(f"Found {len(unique_numbers)} unique tel: href links:")
+            for number in unique_numbers:
                 print(f"Phone number found: {number}")
+
         else:
             print("No tel: href links found. Searching for phone numbers in text...")
             
             # Fall back to regex search
             page_source = driver.page_source
             phone_numbers = find_phone_numbers(page_source)
-            
+
             if phone_numbers:
-                print(f"Found {len(phone_numbers)} phone numbers:")
-                for number in phone_numbers:
+                unique_numbers = set(phone_numbers)  # Store unique numbers
+                print(f"Found {len(unique_numbers)} unique phone numbers:")
+                for number in unique_numbers:
                     print(f"Phone number found: {number}")
+
             else:
                 print("No phone numbers found on homepage. Searching 'About Us' or 'Contact Us' pages...")
                 
